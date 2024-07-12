@@ -2,6 +2,8 @@ const dotenv = require('dotenv');
 const express =require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const albumsRouter = require("./Routes/albumsRoute");
+
 
 //Create a new express application with the name of testDbConnection:
 const testDbConnection = express();
@@ -25,14 +27,9 @@ testDbConnection.use((req, res, next) => {
 });
 
 //Create a Route to test the connection Below:
+testDbConnection.use("/", albumsRouter);
 
-
-//Server Call:
-testDbConnection.get("/", (req, res) => {
-    res.send("Welcome to the testDbConnection API SERVER Is Ready");
-});
-
-//Server Error Handling:
+//Server Error Handling: 
 testDbConnection.use((err, req, res, next) => {
     res.status(500).send({ message: err.message });
 });
