@@ -3,15 +3,15 @@ const express =require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const albumsRouter = require("./Routes/albumsRoute");
-
-
+const { connect } = require('./DBConfig/config.db');
+ 
 //Create a new express application with the name of testDbConnection:
 const testDbConnection = express();
 
 //Call dotr env config to get access to our private environment veriables:
-dotenv.config();
+dotenv.config(); 
 
-//Create cors middleware:
+//Create CORS middleware:
 testDbConnection.use(cors());
 
 //Create body parser middleware:
