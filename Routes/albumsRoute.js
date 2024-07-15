@@ -8,6 +8,8 @@ albumRouter.get("/", (req, res) => {
 });
 
 albumRouter.get("/albums", albumsController.getAllAlbumsList);
+albumRouter.get("/albums/:artist", albumsController.getAlbumsByArtist);
+
 
 
 // albumRouter.get("/albums/:id", albumsController.getAlbumByID);

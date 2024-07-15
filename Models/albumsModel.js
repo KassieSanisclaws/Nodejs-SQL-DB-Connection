@@ -1,7 +1,6 @@
 const { mssql, DataTypes } = require("mssql");
 
-const Album = mssql.define(
-  "Album",
+const Album = mssql.module()
   {
     album_id: {
       type: DataTypes.INTEGER,
@@ -17,6 +16,10 @@ const Album = mssql.define(
       allowNull: false,
     },
     genre_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    musiclabel_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

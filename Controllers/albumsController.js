@@ -1,5 +1,5 @@
 const dbConnect = require("../DBConfig/config.db");
-// const Album = require("../models/Album");
+// const Album = require("../Models/albumsModel");
 
 const getAllAlbumsList = async (req, res) => {
   try {
@@ -12,12 +12,13 @@ const getAllAlbumsList = async (req, res) => {
 
 const getAlbumsByArtist = async (req, res) => {
   const artist = req.params.artist;
+    console.log(artist);
   try {
     const result = await dbConnect
       .request()
       .input("artist", mssql.VarChar, artist)
       .query(
-        "SELECT * FROM albums WHERE artist_id = (SELECT artist_id FROM artists WHERE name = @artist)"
+        "SELECT * FROM albums WHERE artist_id = (SELECT artist_id FROM artists WHERE name = @artists)"
       );
     res.status(200).json(result.recordset);
   } catch (err) {
@@ -41,12 +42,13 @@ const getAlbumsByGenre = async (req, res) => {
 };
 
 const createAlbum = async (req, res) => {
-  const { title, artist_id, genre_id, release_year, hit_song } = req.body;
+  const { title, artist_id, genre_id, release_year, musiclabel_id, hit_song } = req.body;
   try {
     const newAlbum = await Album.create({
       title,
       artist_id,
       genre_id,
+      musiclabel_id,
       release_year,
       hit_song,
     });
@@ -60,4 +62,5 @@ module.exports = {
   getAllAlbumsList,
   getAlbumsByArtist,
   getAlbumsByGenre,
+  createAlbum,
 };

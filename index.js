@@ -3,7 +3,6 @@ const express =require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const albumsRouter = require("./Routes/albumsRoute");
-const { connect } = require('./DBConfig/config.db');
  
 //Create a new express application with the name of testDbConnection:
 const testDbConnection = express();
