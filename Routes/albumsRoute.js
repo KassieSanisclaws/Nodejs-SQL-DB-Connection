@@ -9,10 +9,8 @@ albumRouter.get("/", (req, res) => {
 
 albumRouter.get("/albums", albumsController.getAllAlbumsList);
 albumRouter.get("/albums/:artist", albumsController.getAlbumsByArtist);
-
-
-
-// albumRouter.get("/albums/:id", albumsController.getAlbumByID);
-
+albumRouter.get("/albums/artist/:id", albumsController.getAlbumsArtistByID);
+albumRouter.get("/albums/genre/:genre", albumsController.getAlbumsByGenre);
+albumRouter.put("/albums/update/:id", albumsController.updateAlbum);
 
 module.exports = albumRouter;

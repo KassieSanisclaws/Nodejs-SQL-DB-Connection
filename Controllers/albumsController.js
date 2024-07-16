@@ -1,5 +1,6 @@
+const mssql = require("mssql");
 const dbConnect = require("../DBConfig/config.db");
-// const Album = require("../Models/albumsModel");
+const Album = require("../Models/albumsModel");
 
 const getAllAlbumsList = async (req, res) => {
   try {
@@ -10,15 +11,27 @@ const getAllAlbumsList = async (req, res) => {
   }
 };
 
+const getAlbumsArtistByID = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = await dbConnect
+      .request()
+      .input("id", mssql.Int, id)
+      .query("SELECT * FROM albums WHERE artist_id = @id");
+    res.status(200).json(result.recordset);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};
+
 const getAlbumsByArtist = async (req, res) => {
   const artist = req.params.artist;
-    console.log(artist);
-  try {
+   try {
     const result = await dbConnect
       .request()
       .input("artist", mssql.VarChar, artist)
       .query(
-        "SELECT * FROM albums WHERE artist_id = (SELECT artist_id FROM artists WHERE name = @artists)"
+        "SELECT * FROM albums WHERE artist_id = (SELECT artist_id FROM artists WHERE name = @artist)"
       );
     res.status(200).json(result.recordset);
   } catch (err) {
@@ -58,9 +71,24 @@ const createAlbum = async (req, res) => {
   }
 };
 
+const updateAlbum = async (req, res) => {
+    const album_id = req.params.album_id;
+    const albumData = req.body;
+
+    try {
+        const updatedAlbum = await Album.updateAlbum(album_id, albumData);
+        res.status(200).json(updatedAlbum);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+ };
+
 module.exports = {
   getAllAlbumsList,
   getAlbumsByArtist,
   getAlbumsByGenre,
   createAlbum,
+  getAlbumsArtistByID,
+  updateAlbum,
+
 };
