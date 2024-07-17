@@ -15,7 +15,7 @@ class User {
           OUTPUT INSERTED.*
           VALUES (@username, @password)
         `);
-      return result.recordset[0];
+      return result;
     } catch (err) {
       throw new Error("Error creating user: " + err.message);
     }
@@ -29,7 +29,7 @@ class User {
         .request()
         .input("username", mssql.VarChar, username)
         .query("SELECT * FROM users WHERE username = @username");
-      return result.recordset[0];
+      return (await result).recordset[0];
     } catch (err) {
       throw new Error("Error fetching user: " + err.message);
     }
@@ -65,6 +65,8 @@ class User {
    }
 
  //Add more methods here as needed:
+
+
 }
 
 module.exports = User;

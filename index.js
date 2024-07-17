@@ -38,7 +38,7 @@ testDbConnection.use((err, req, res, next) => {
 //Server Port Listening at 54441 and or 3000:
 const port = process.env.SERVER_PORT || 54441;
 testDbConnection.listen(port, () => {
-    console.log(`Server is running on port http://localhost:${port}`);
+    console.log(`Server is running on port https://localhost:${port}`);
 });
 
 //Export the testDbConnection:
