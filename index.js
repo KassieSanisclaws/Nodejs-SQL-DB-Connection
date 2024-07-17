@@ -3,6 +3,7 @@ const express =require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const albumsRouter = require("./Routes/albumsRoute");
+const userRouter = require('./Routes/userRoute');
  
 //Create a new express application with the name of testDbConnection:
 const testDbConnection = express();
@@ -27,6 +28,7 @@ testDbConnection.use((req, res, next) => {
 
 //Create a Route to test the connection Below:
 testDbConnection.use("/", albumsRouter);
+testDbConnection.use("/users", userRouter);
 
 //Server Error Handling: 
 testDbConnection.use((err, req, res, next) => {
